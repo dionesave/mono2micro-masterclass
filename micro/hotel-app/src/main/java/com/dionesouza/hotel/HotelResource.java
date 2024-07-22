@@ -16,16 +16,23 @@ public class HotelResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Hotel> hotels() {
+    public List<Hotel> hotels(){
         return Hotel.listAll();
+    }
+
+    @GET
+    @Path("findById")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Hotel findById(@QueryParam("id") long id){
+        return Hotel.findById(id);
     }
 
     @GET
     @Path("findByTravelOrderId")
     @Produces(MediaType.APPLICATION_JSON)
-    public Hotel findByTravelOrderId(@QueryParam("travelOrderId") long travelOrderId) throws InterruptedException {
+    public Hotel findByTravelOrderId(@QueryParam("travelOrderId") long travelOrderId){
         return Hotel.findByTravelOrderId(travelOrderId);
-    }
+    }    
 
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
