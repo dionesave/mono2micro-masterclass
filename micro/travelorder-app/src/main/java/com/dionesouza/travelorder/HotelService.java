@@ -41,7 +41,7 @@ public interface HotelService {
     @POST
     public Hotel newHotel(Hotel hotel);
 
-    default Hotel fallback(long travelOrderId) {
+    default Hotel fallback(long travelOrderId){
         Hotel hotel = new Hotel();
         hotel.setNights(-1);
         hotel.setTravelOrderId(travelOrderId);

@@ -7,10 +7,10 @@ public class Flight {
     private String fromAirport;
     private String toAirport;
 
+    
     public Flight() {
-        
     }
-
+    
     public Long getId() {
         return id;
     }

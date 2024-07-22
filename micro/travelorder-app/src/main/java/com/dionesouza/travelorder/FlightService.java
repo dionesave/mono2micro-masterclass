@@ -33,7 +33,7 @@ public interface FlightService {
         failureRatio = 0.5,
         delay = 5000,
         successThreshold = 2
-    )
+    )    
     public Flight findByTravelOrderId(@QueryParam("travelOrderId") long travelOrderId);
 
     @Consumes(MediaType.APPLICATION_JSON)
@@ -41,11 +41,12 @@ public interface FlightService {
     @POST
     public Flight newFlight(Flight flight);
 
-    default Flight fallback(long travelOrderId) {
-        Flight flight  = new Flight();
+    default Flight fallback(long travelOrderId){
+        Flight flight = new Flight();
         flight.setFromAirport("");
         flight.setToAirport("");
         flight.setTravelOrderId(travelOrderId);
+
         return flight;
-    }
+    }    
 }

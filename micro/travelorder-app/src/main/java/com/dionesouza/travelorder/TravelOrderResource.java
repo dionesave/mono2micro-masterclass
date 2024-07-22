@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -25,22 +26,27 @@ public class TravelOrderResource {
     @Inject
     @RestClient
     HotelService hotelService;
-    
+
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<TravelOrderDTO> orders() {
+    @RunOnVirtualThread
+    public List<TravelOrderDTO> orders(){
+        
+        System.out.println(Thread.currentThread());
         return TravelOrder.<TravelOrder>listAll().stream()
             .map(
                 order -> TravelOrderDTO.of(
-                    order,
-                    flightService.findByTravelOrderId(order.id),
-                    hotelService.findByTravelOrderId(order.id))
+                    order, 
+                    flightService.findByTravelOrderId(order.id), 
+                    hotelService.findByTravelOrderId(order.id) 
+                )
             ).collect(Collectors.toList());
     }
 
     @GET
     @Path("findById")
-    public TravelOrder findById(@QueryParam("id") long id) {
+    public TravelOrder findById(@QueryParam("id") long id){
         return TravelOrder.findById(id);
     }
 
@@ -48,7 +54,7 @@ public class TravelOrderResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public TravelOrder newTravelOrder(TravelOrderDTO orderDto) {
+    public TravelOrder newTravelOrder(TravelOrderDTO orderDto){
         TravelOrder order = new TravelOrder();
         order.id = null;
         order.persist();

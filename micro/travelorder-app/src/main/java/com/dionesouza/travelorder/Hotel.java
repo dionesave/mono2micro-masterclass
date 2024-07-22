@@ -4,12 +4,11 @@ public class Hotel {
     
     private Long id;
     private Long travelOrderId;
-    private int nights;
-
-
+    private Integer nights;
+    
     public Hotel() {
     }
-
+    
     public Long getId() {
         return id;
     }
@@ -22,10 +21,10 @@ public class Hotel {
     public void setTravelOrderId(Long travelOrderId) {
         this.travelOrderId = travelOrderId;
     }
-    public int getNights() {
+    public Integer getNights() {
         return nights;
     }
-    public void setNights(int nights) {
+    public void setNights(Integer nights) {
         this.nights = nights;
     }
 
